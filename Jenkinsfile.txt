@@ -28,7 +28,7 @@ pipeline {
                 success {
                     emailext(
                         to: "pooyafo@gmail.com",
-                        subject: "Jenkins Job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) - Test Stage Success",
+                        subject: "Jenkins Job - Test Stage Success",
                         body: "The test stage was successful.",
                         attachLog: true
                     )
@@ -36,7 +36,7 @@ pipeline {
                 failure {
                     emailext(
                         to: "pooyafo@gmail.com",
-                        subject: "Jenkins Job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) - Test Stage Failure",
+                        subject: "Jenkins Job - Test Stage Failure",
                         body: "The test stage was NOT successful.",
                         attachLog: true
                     )
@@ -64,7 +64,7 @@ pipeline {
                 success {
                     emailext(
                         to: "pooyafo@gmail.com",
-                        subject: "Jenkins Job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) - Security Scan Success",
+                        subject: "Jenkins Job - Security Scan Success",
                         body: "The security scan was successful.",
                         attachLog: true
                     )
@@ -72,7 +72,7 @@ pipeline {
                 failure {
                     emailext(
                         to: "pooyafo@gmail.com",
-                        subject: "Jenkins Job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) - Security Scan Failure",
+                        subject: "Jenkins Job - Security Scan Failure",
                         body: "The security scan was NOT successful.",
                         attachLog: true
                     )
