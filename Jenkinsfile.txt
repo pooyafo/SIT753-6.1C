@@ -57,7 +57,7 @@ pipeline {
             steps {
                 script {
                     // Perform security scan using OWASP Dependency-Check
-                    echo "dependency-check --project "MyApp" --scan "./""
+                    echo 'dependency-check --project "MyApp" --scan "./"'
                 }
             }
             post {
