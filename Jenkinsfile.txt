@@ -83,7 +83,7 @@ pipeline {
         stage('Deploy to Staging') {
             steps {
                 script {
-                    // Deploy the package to the staging server
+                    // Deploy to the staging server
                     echo "aws deploy create-deployment --application-name MyApp --deployment-group-name Staging"
                 }
             }
@@ -101,7 +101,7 @@ pipeline {
         stage('Deploy to Production') {
             steps {
                 script {
-                    // Deploy the package to the production server
+                    // Deploy to the production server
                     echo "aws deploy create-deployment --application-name MyApp --deployment-group-name Production"
                 }
             }
