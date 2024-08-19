@@ -1,48 +1,101 @@
 pipeline {
     agent any
-    environment {
-        DIRECTORY_PATH = "D:\\University\\Deakin\\DS\\T2\\SIT753-Professional Practice in IT\\seminar 5\\code"
-        TESTING_ENVIRONMENT = "env-stg"
-        PRODUCTION_ENVIRONMENT = "Pooya Forghani Arani"
+
+    triggers {
+        pollSCM('H/1 * * * *')  // Triggers every 2 minutes to check for new commits
     }
+
     stages {
         stage('Build') {
             steps {
-                echo "Fetch code from ${env.DIRECTORY_PATH}"
-                echo "compile the code and generate any necessary artifacts"
-            }
-            post{
-                success{
-                    mail to: "pooyafo@gmail.com",
-                    subject: "Build Status Email",
-                    body: "Build was successful!"
+                script {
+                    // Build the project using Maven
+                    sh 'mvn clean package'
                 }
             }
         }
-        stage('Test') {
+        
+        stage('Unit and Integration Tests') {
             steps {
-                echo "unit tests"
-                echo "integration tests"
+                script {
+                    // Run unit tests
+                    sh 'mvn test'
+                    // Run integration tests
+                    sh 'mvn integration-test'
+                }
+            }
+            post{
+                success{
+                    to: "pooyafo@gmail.com",
+                    subject: "Test Stage Status",
+                    attachLog: true,
+                    body: "Test was successful!"
+                }
+                failure{
+                    to: "pooyafo@gmail.com",
+                    subject: "Test Stage Status",
+                    attachLog: true,
+                    body: "Test was NOT successful!"
+                }
             }
         }
-        stage('Code Quality Check'){
-            steps{
-                echo "check the quality of the code"
-            }
-        }
-        stage('Deploy') {
+        
+        stage('Code Analysis') {
             steps {
-                echo "deploy the application to ${env.TESTING_ENVIRONMENT}"
+                script {
+                    // Perform static code analysis using SonarQube
+                    sh 'sonar-scanner'
+                }
             }
         }
-        stage('Approval') {
+
+        stage('Security Scan') {
             steps {
-                sleep(time:10, unit: "SECONDS")
+                script {
+                    // Perform security scan using OWASP Dependency-Check
+                    sh 'dependency-check --project "MyApp" --scan "./"'
+                }
+            }
+            post{
+                success{
+                    to: "pooyafo@gmail.com",
+                    subject: "Security Scan Status",
+                    attachLog: true,
+                    body: "Security scan was successful!"
+                }
+                failure {
+                    to: "pooyafo@gmail.com",
+                    subject: "Security Scan Status",
+                    attachLog: true,
+                    body: "Security scan was NOT successful!"
+                }
             }
         }
+
+        stage('Deploy to Staging') {
+            steps {
+                script {
+                    // Deploy the package to the staging server
+                    sh 'aws deploy create-deployment --application-name MyApp --deployment-group-name Staging'
+                }
+            }
+        }
+
+        stage('Integration Tests on Staging') {
+            steps {
+                script {
+                    // Run tests in the staging environment
+                    sh 'postman-collection-runner --environment staging --collection my-tests.json'
+                }
+            }
+        }
+
         stage('Deploy to Production') {
             steps {
-                echo "Deploy the code to ${env.PRODUCTION_ENVIRONMENT}"
+                script {
+                    // Deploy the package to the production server
+                    sh 'aws deploy create-deployment --application-name MyApp --deployment-group-name Production'
+                }
             }
         }
     }
