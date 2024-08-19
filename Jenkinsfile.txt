@@ -26,13 +26,13 @@ pipeline {
             }
             post{
                 success{
-                    to: "pooyafo@gmail.com",
+                    mail to: "pooyafo@gmail.com",
                     subject: "Test Stage Status",
                     attachLog: true,
                     body: "Test was successful!"
                 }
                 failure{
-                    to: "pooyafo@gmail.com",
+                    mail to: "pooyafo@gmail.com",
                     subject: "Test Stage Status",
                     attachLog: true,
                     body: "Test was NOT successful!"
@@ -58,13 +58,13 @@ pipeline {
             }
             post{
                 success{
-                    to: "pooyafo@gmail.com",
+                    mail to: "pooyafo@gmail.com",
                     subject: "Security Scan Status",
                     attachLog: true,
                     body: "Security scan was successful!"
                 }
                 failure {
-                    to: "pooyafo@gmail.com",
+                    mail to: "pooyafo@gmail.com",
                     subject: "Security Scan Status",
                     attachLog: true,
                     body: "Security scan was NOT successful!"
