@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     triggers {
-        pollSCM('H/1 * * * *')  // Triggers every 2 minutes to check for new commits
+        pollSCM('H/1 * * * *')  // Triggers every minute to check for new commits
     }
 
     stages {
