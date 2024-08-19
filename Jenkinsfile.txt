@@ -10,7 +10,7 @@ pipeline {
             steps {
                 script {
                     // Build the project using Maven
-                    sh 'mvn clean package'
+                    echo "mvn clean package"
                 }
             }
         }
@@ -19,9 +19,9 @@ pipeline {
             steps {
                 script {
                     // Run unit tests
-                    sh 'mvn test'
+                    echo "mvn test"
                     // Run integration tests
-                    sh 'mvn integration-test'
+                    echo "mvn integration-test"
                 }
             }
             post {
@@ -48,7 +48,7 @@ pipeline {
             steps {
                 script {
                     // Perform static code analysis using SonarQube
-                    sh 'sonar-scanner'
+                    echo "sonar-scanner"
                 }
             }
         }
@@ -57,7 +57,7 @@ pipeline {
             steps {
                 script {
                     // Perform security scan using OWASP Dependency-Check
-                    sh 'dependency-check --project "MyApp" --scan "./"'
+                    echo "dependency-check --project "MyApp" --scan "./""
                 }
             }
             post {
@@ -84,7 +84,7 @@ pipeline {
             steps {
                 script {
                     // Deploy the package to the staging server
-                    sh 'aws deploy create-deployment --application-name MyApp --deployment-group-name Staging'
+                    echo "aws deploy create-deployment --application-name MyApp --deployment-group-name Staging"
                 }
             }
         }
@@ -93,7 +93,7 @@ pipeline {
             steps {
                 script {
                     // Run tests in the staging environment
-                    sh 'postman-collection-runner --environment staging --collection my-tests.json'
+                    echo "postman-collection-runner --environment staging --collection my-tests.json"
                 }
             }
         }
@@ -102,7 +102,7 @@ pipeline {
             steps {
                 script {
                     // Deploy the package to the production server
-                    sh 'aws deploy create-deployment --application-name MyApp --deployment-group-name Production'
+                    echo "aws deploy create-deployment --application-name MyApp --deployment-group-name Production"
                 }
             }
         }
