@@ -24,18 +24,22 @@ pipeline {
                     sh 'mvn integration-test'
                 }
             }
-            post{
-                success{
-                    mail to: "pooyafo@gmail.com",
-                    subject: "Test Stage Status",
-                    attachLog: true,
-                    body: "Test was successful!"
+            post {
+                success {
+                    emailext(
+                        to: "pooyafo@gmail.com",
+                        subject: "Jenkins Job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) - Test Stage Success",
+                        body: "The test stage was successful.",
+                        attachLog: true
+                    )
                 }
-                failure{
-                    mail to: "pooyafo@gmail.com",
-                    subject: "Test Stage Status",
-                    attachLog: true,
-                    body: "Test was NOT successful!"
+                failure {
+                    emailext(
+                        to: "pooyafo@gmail.com",
+                        subject: "Jenkins Job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) - Test Stage Failure",
+                        body: "The test stage was NOT successful.",
+                        attachLog: true
+                    )
                 }
             }
         }
@@ -56,18 +60,22 @@ pipeline {
                     sh 'dependency-check --project "MyApp" --scan "./"'
                 }
             }
-            post{
-                success{
-                    mail to: "pooyafo@gmail.com",
-                    subject: "Security Scan Status",
-                    attachLog: true,
-                    body: "Security scan was successful!"
+            post {
+                success {
+                    emailext(
+                        to: "pooyafo@gmail.com",
+                        subject: "Jenkins Job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) - Security Scan Success",
+                        body: "The security scan was successful.",
+                        attachLog: true
+                    )
                 }
                 failure {
-                    mail to: "pooyafo@gmail.com",
-                    subject: "Security Scan Status",
-                    attachLog: true,
-                    body: "Security scan was NOT successful!"
+                    emailext(
+                        to: "pooyafo@gmail.com",
+                        subject: "Jenkins Job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) - Security Scan Failure",
+                        body: "The security scan was NOT successful.",
+                        attachLog: true
+                    )
                 }
             }
         }
