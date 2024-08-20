@@ -59,15 +59,16 @@ pipeline {
                     // Perform security scan using OWASP Dependency-Check
                     echo 'dependency-check --project "MyApp" --scan "./"'
                 }
-            }
-            post {
-                success {
-                    emailext (
+                emailext (
                         attachLog: true,
                         body: 'Security scan was successful!',
                         subject: 'Security Scan Status',
                         to: 'pooya.aban@gmail.com'
                     )
+            }
+            post {
+                success {
+                    
                 }
                 failure {
                     emailext attachLog: true, body: 'Security scan was NOT successful!', subject: 'Security Scan Status', to: 'pooya.aban@gmail.com'
