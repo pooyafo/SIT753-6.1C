@@ -66,14 +66,7 @@ pipeline {
                         attachLog: true,
                         body: 'Security scan was successful!',
                         subject: 'Security Scan Status',
-                        to: 'pooya.aban@gmail.com',
-                        smtpServer: 'smtp.gmail.com',
-                        smtpPort: '465',
-                        useTLS: false,
-                        useSSL: true,
-                        auth: true,
-                        username: 'pooyafo@gmail.com',
-                        password: 'rmtz ajal bvvu siuw'
+                        to: 'pooya.aban@gmail.com'
                     )
                 }
                 failure {
