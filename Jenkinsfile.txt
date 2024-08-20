@@ -62,10 +62,22 @@ pipeline {
             }
             post {
                 success {
-                    emailext attachLog: true, body: 'Security scan was successful!', subject: 'Security Scan Status', to: "pooya.aban@gmail.com"
+                    emailext (
+                        attachLog: true,
+                        body: 'Security scan was successful!',
+                        subject: 'Security Scan Status',
+                        to: 'pooya.aban@gmail.com',
+                        smtpServer: 'smtp.gmail.com',
+                        smtpPort: '465',
+                        useTLS: false,
+                        useSSL: true,
+                        auth: true,
+                        username: 'pooyafo@gmail.com',
+                        password: 'rmtz ajal bvvu siuw'
+                    )
                 }
                 failure {
-                    emailext attachLog: true, body: 'Security scan was NOT successful!', subject: 'Security Scan Status', to: "pooya.aban@gmail.com"
+                    emailext attachLog: true, body: 'Security scan was NOT successful!', subject: 'Security Scan Status', to: 'pooya.aban@gmail.com'
                 }
             }
         }
