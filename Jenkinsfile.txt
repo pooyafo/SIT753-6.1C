@@ -26,16 +26,16 @@ pipeline {
             }
             post {
                 success {
-                    emailext body: 'The test stage was successful. Please find the log attached.',
-                        to: 'pooyafo@gmail.com',
-                        subject: 'Jenkins Job - Test Stage Success',
-                        attachLog: true
+                    mail to: 'pooyafo@gmail.com',
+                    body: 'The test stage was successful. Please find the log attached.',
+                    subject: 'Jenkins Job - Test Stage Success',
+                    attachLog: true
                     }
                 failure {
-                    emailext body: 'The test stage was NOT successful. Please find the log attached.',
-                        to: 'pooyafo@gmail.com',
-                        subject: 'Jenkins Job - Test Stage Failure',
-                        attachLog: true
+                    mail to: 'pooyafo@gmail.com',
+                    body: 'The test stage was NOT successful. Please find the log attached.',
+                    subject: 'Jenkins Job - Test Stage Failure',
+                    attachLog: true
                     }
             }
         }
@@ -59,7 +59,7 @@ pipeline {
             post {
                 success {
                     emailext(
-                        to: "pooyafo@gmail.com",
+                        mail to: "pooyafo@gmail.com",
                         subject: "Jenkins Job - Security Scan Success",
                         body: "The security scan was successful.",
                         attachLog: true
@@ -67,7 +67,7 @@ pipeline {
                 }
                 failure {
                     emailext(
-                        to: "pooyafo@gmail.com",
+                        mail to: "pooyafo@gmail.com",
                         subject: "Jenkins Job - Security Scan Failure",
                         body: "The security scan was NOT successful.",
                         attachLog: true
