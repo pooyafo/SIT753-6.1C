@@ -28,14 +28,10 @@ pipeline {
             }
             post {
                 always {
-                    script {
-                        writeFile file: 'console-log.txt', text: currentBuild.rawBuild.getLog(1000).join('\n')
-                    }
                     emailext (
                         to: "${env.Email_Address}",
                         subject: "${currentBuild.currentResult} - Unit and Integration Tests",
                         body: "Please find the attached log for details of the tests.",
-                        attachmentsPattern: 'console-log.txt'
                     )
                 }
             }
