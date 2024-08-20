@@ -26,21 +26,17 @@ pipeline {
             }
             post {
                 success {
-                    emailext(
-                        to: "pooyafo@gmail.com",
-                        subject: "Jenkins Job - Test Stage Success",
-                        body: "The test stage was successful.",
+                    emailext body: 'The test stage was successful. Please find the log attached.',
+                        to: 'pooyafo@gmail.com',
+                        subject: 'Jenkins Job - Test Stage Success',
                         attachLog: true
-                    )
-                }
+                    }
                 failure {
-                    emailext(
-                        to: "pooyafo@gmail.com",
-                        subject: "Jenkins Job - Test Stage Failure",
-                        body: "The test stage was NOT successful.",
+                    emailext body: 'The test stage was NOT successful. Please find the log attached.',
+                        to: 'pooyafo@gmail.com',
+                        subject: 'Jenkins Job - Test Stage Failure',
                         attachLog: true
-                    )
-                }
+                    }
             }
         }
         
