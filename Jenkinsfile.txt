@@ -63,7 +63,7 @@ pipeline {
                         attachLog: true,
                         body: 'Security scan was successful!',
                         subject: 'Security Scan Status',
-                        to: 'pooya.aban@gmail.com'
+                        to: 'pooyafo@gmail.com'
                     )
             }
         }
