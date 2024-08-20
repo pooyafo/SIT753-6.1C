@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        Email_Address = 's223655687@deakin.edu.au'
+        Email_Address = 'pooyafo@gmail.com'
     }
     triggers {
         pollSCM('H/1 * * * *')  // Triggers every minute to check for new commits
