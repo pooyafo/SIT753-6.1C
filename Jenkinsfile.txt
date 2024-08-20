@@ -62,20 +62,14 @@ pipeline {
             }
             post {
                 success {
-                    emailext(
-                        to: 'pooyafo@gmail.com',
-                        subject: 'Jenkins Job - Security Scan Success',
-                        body: 'The security scan was successful. Please find the log attached.',
-                        // attachLog: true
-                    )
+                    mail to: 'pooyafo@gmail.com',
+                    subject: 'Security Scan Status',
+                    body: 'Security scan was successful!'
                 }
                 failure {
-                    emailext(
-                        to: 'pooyafo@gmail.com',
-                        subject: 'Jenkins Job - Security Scan Failure',
-                        body: 'The security scan was NOT successful. Please find the log attached.',
-                        // attachLog: true
-                    )
+                    mail to: 'pooyafo@gmail.com',
+                    subject: 'Security Scan Status',
+                    body: 'Security scan was NOT successful!'
                 }
             }
         }
