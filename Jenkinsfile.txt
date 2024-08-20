@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    environment {
+        EmailAddress = 'pooyafo@gmail.com'
+    }
     triggers {
         pollSCM('H/1 * * * *')  // Triggers every minute to check for new commits
     }
@@ -25,21 +27,16 @@ pipeline {
                 }
             }
             post {
-                success {
+                always {
+                    script {
+                        writeFile file: 'console_log.txt', text: currentBuild.rawBuild.getLog(1000).join('\n')
+                    }
                     emailext (
-                        attachLog: true,
-                        body: 'The test stage was successful.',
-                        subject: 'Jenkins Job - Test Stage Success',
-                        to: 'pooya.aban@gmail.com'
-                        )
-                }
-                failure {
-                    emailext (
-                        attachLog: true,
-                        body: 'The test stage was NOT successful.',
-                        subject: 'Jenkins Job - Test Stage Failure',
-                        to: 'pooya.aban@gmail.com'
-                        )
+                        attachmentsPattern: 'console_log.txt',
+                        subject: "Unit and Integration Tests - ${currentBuild.currentResult}",
+                        body: 'Find the log file of the "Unit and Integration Tests" stage in the attachments.',
+                        to: "${env.EmailAddress}"
+                    )
                 }
             }
         }
@@ -59,12 +56,19 @@ pipeline {
                     // Perform security scan using OWASP Dependency-Check
                     echo 'dependency-check --project "MyApp" --scan "./"'
                 }
-                emailext (
-                        attachLog: true,
-                        body: 'Security scan was successful!',
-                        subject: 'Security Scan Status',
-                        to: 'pooyafo@gmail.com'
+            }
+            post {
+                always {
+                    script {
+                        writeFile file: 'console_log.txt', text: currentBuild.rawBuild.getLog(1000).join('\n')
+                    }
+                    emailext (
+                        attachmentsPattern: 'console_log.txt',
+                        subject: "Security Scan - ${currentBuild.currentResult}",
+                        body: 'Find the log file of the "Security Scan" stage in the attachments.',
+                        to: "${env.EmailAddress}"
                     )
+                }
             }
         }
 
