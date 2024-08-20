@@ -66,14 +66,6 @@ pipeline {
                         to: 'pooya.aban@gmail.com'
                     )
             }
-            post {
-                success {
-                    
-                }
-                failure {
-                    emailext attachLog: true, body: 'Security scan was NOT successful!', subject: 'Security Scan Status', to: 'pooya.aban@gmail.com'
-                }
-            }
         }
 
         stage('Deploy to Staging') {
