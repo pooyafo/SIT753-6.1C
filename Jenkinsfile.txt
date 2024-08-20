@@ -30,7 +30,7 @@ pipeline {
                         attachLog: true,
                         body: 'The test stage was successful.',
                         subject: 'Jenkins Job - Test Stage Success',
-                        to: 'pooyafo@gmail.com'
+                        to: 'pooya.aban@gmail.com'
                         )
                 }
                 failure {
@@ -38,7 +38,7 @@ pipeline {
                         attachLog: true,
                         body: 'The test stage was NOT successful.',
                         subject: 'Jenkins Job - Test Stage Failure',
-                        to: 'pooyafo@gmail.com'
+                        to: 'pooya.aban@gmail.com'
                         )
                 }
             }
