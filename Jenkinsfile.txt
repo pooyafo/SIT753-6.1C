@@ -19,10 +19,10 @@ pipeline {
                 echo 'Stage 2: Unit and Integration Tests - In this stage, unit tests ensure the code performs its expected functions, while integration tests verify that different application components work cohesively. Tools used: JUnit for unit testing and Selenium for integration testing.'
             }
             post {
-                script {
-                    writeFile file: 'log.txt', text: currentBuild.rawBuild.getLog(100).join('\n')
-                }
                 always {
+                    script {
+                        writeFile file: 'log.txt', text: currentBuild.rawBuild.getLog(100).join('\n')
+                    }
                     emailext (
                         to: "${env.Email_Address}",
                         subject: "Unit and Integration Tests - ${currentBuild.currentResult}",
@@ -44,10 +44,10 @@ pipeline {
                 echo 'Stage 4: Security Scan - In this stage, a security scan identifies potential vulnerabilities in the code. Tool used: OWASP Dependency-Check, integrated with Jenkins, detects security flaws and outdated dependencies.'
             }
             post {
-                script {
-                    writeFile file: 'log.txt', text: currentBuild.rawBuild.getLog(100).join('\n')
-                }
                 always {
+                    script {
+                        writeFile file: 'log.txt', text: currentBuild.rawBuild.getLog(100).join('\n')
+                    }
                     emailext (
                         to: "${env.Email_Address}",
                         subject: "Security Scan - ${currentBuild.currentResult}",
