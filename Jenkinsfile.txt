@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                    echo "Stage 1: Build - In this stage, the code is compiled and assembled into a deployable package, preparing it for the next stages of testing and deployment. Tool used: Maven, which streamlines the build process by managing dependencies and automating the project lifecycle."
+                    echo "Stage 1: Build - In this stage, the code is compiled and assembled into a deployable package, preparing it for the next stages of testing and deployment. Tool used: Maven, which streamlines the build process by managing dependencies and automating the project lifecycle"
                 }
         }
         
